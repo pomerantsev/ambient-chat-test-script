@@ -37,8 +37,10 @@ client.emit('login', {id: 'user' + currentUserNumber}, function () {
     // with a 50% probability.
     if (dialogs.length && Math.random() < 0.5) {
       otherUserId = dialogs[Math.floor(Math.random() * dialogs.length)]._id;
+      console.log('Selecting ' + otherUserId + ' from existing dialogs.');
     } else {
       otherUserId = 'user' + getRandomOtherUserNumber();
+      console.log('Randomly selecting the other user.');
     }
 
     client.emit('startSession', otherUserId, function () {
