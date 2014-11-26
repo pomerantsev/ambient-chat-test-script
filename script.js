@@ -1,10 +1,10 @@
 var io = require('socket.io-client');
+var lorem = require('lorem');
 
 var options = {
   url: process.argv[2] || 'http://localhost:8080',
   meanDelay: process.argv[3] || 30000,
-  meanLength: process.argv[4] || 50,
-  maxUserNumber: process.argv[5] || 1000
+  maxUserNumber: process.argv[4] || 1000
 };
 
 var client = io(options.url, {
@@ -56,9 +56,9 @@ client.emit('login', {id: 'user' + currentUserNumber}, function () {
       function sendMessage () {
         client.emit('message', {
           to: otherUserId,
-          text: 'blah'
+          text: lorem.ipsum('s', {numberOfWordsPerSentence: {min: 1, max: 10}})
         });
-        setTimeout(sendMessage, 5000);
+        setTimeout(sendMessage, Math.random() * options.meanDelay + options.meanDelay / 2);
       }
 
       sendMessage();
